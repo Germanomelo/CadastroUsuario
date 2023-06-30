@@ -39,13 +39,6 @@ class DispatchFragment : Fragment(), ForwardDialogListener, MotiveDialogListener
         savedInstanceState: Bundle?
     ): View {
 
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                findNavController().popBackStack()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
-
         binding = FragmentDispatchBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -154,7 +147,7 @@ class DispatchFragment : Fragment(), ForwardDialogListener, MotiveDialogListener
     override fun onForwardDialogResult(result: AddresseeEnum?) {
         if(result != null) {
             forward?.to = result
-            binding.textAddresseeValue.text = result?.value.toString()
+            binding.textAddresseeValue.text = result.value.toString()
             binding.textAddresseeValue.visibility = View.VISIBLE
             binding.textAddresseeValue.setTextColor(
                 (ContextCompat.getColor(
@@ -184,10 +177,7 @@ class DispatchFragment : Fragment(), ForwardDialogListener, MotiveDialogListener
     }
 
     override fun onSuccessDialogResult() {
-        findNavController().navigate(R.id.action_dispatchFragment_to_addUserFragment )
-        onDestroy()
+        findNavController().navigate(R.id.action_dispatchFragment_to_registerUserFragment )
     }
-
-
 
 }

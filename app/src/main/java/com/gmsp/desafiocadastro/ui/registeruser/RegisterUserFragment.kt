@@ -81,13 +81,7 @@ class RegisterUserFragment : Fragment() {
             } else {
                 val userJson = Gson().toJson(user)
                 val bundle = bundleOf("User" to userJson)
-                findNavController().navigate(R.id.action_addUserFragment_to_selectServiceFragment, bundle)
-
-//                findNavController().run {
-//                    previousBackStackEntry?.savedStateHandle?.set("User", user)
-//                    navigate(R.id.action_addUserFragment_to_selectServiceFragment)
-//                }
-
+                findNavController().navigate(R.id.action_registerUserFragment_to_selectServiceFragment, bundle)
             }
         }
     }

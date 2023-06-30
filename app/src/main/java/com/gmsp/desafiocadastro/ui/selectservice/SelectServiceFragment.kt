@@ -43,6 +43,7 @@ class SelectServiceFragment : Fragment() {
     }
 
     private fun setListeners() {
+
         binding.radioForward.setOnClickListener {
             serviceType = ServiceType.FORWARD
         }
