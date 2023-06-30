@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="305dp"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.dialog.ConfirmDialogFragment">
+
+    <TextView
+        style="@style/TextFontMediumDarkGraySizeLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="44dp"
+        android:gravity="center_horizontal"
+        android:text="@string/message_confirm_send"
+        app:layout_constraintBottom_toTopOf="@+id/button_confirm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/button_cancel"
+        style="@style/ButtonFontMediumWhiteBorderBlueSizeLarge"
+        android:layout_width="0dp"
+        android:layout_height="68dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="64dp"
+        android:layout_weight="1"
+        android:textAllCaps="false"
+        android:text="@string/button_cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.4"
+        app:strokeColor="@color/primary_color" />
+
+    <Button
+        android:id="@+id/button_confirm"
+        style="@style/ButtonFontMediumBlueSizeLarge"
+        android:layout_width="0dp"
+        android:layout_height="68dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="64dp"
+        android:layout_weight="1"
+        android:textAllCaps="false"
+        android:text="@string/button_confirm"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.40"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#5e84bf"
+    tools:context=".ui.dialog.ForwardDialogFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_white_radius_top"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_line_large" />
+
+        <TextView
+            android:id="@+id/text_cras"
+            style="@style/TextFontMediumGraySizeBase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            android:layout_marginTop="64dp"
+            android:text="@string/cras"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/text_creas"
+            style="@style/TextFontMediumGraySizeBase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            android:text="@string/creas"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/text_def_public"
+            style="@style/TextFontMediumGraySizeBase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            android:text="@string/def_public"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/text_min_public"
+            style="@style/TextFontMediumGraySizeBase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            android:text="@string/min_public"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/text_jud_power"
+            style="@style/TextFontMediumGraySizeBase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            android:text="@string/jud_power"
+            android:textAlignment="center" />
+
+
+        <Button
+            android:id="@+id/button_save"
+            style="@style/ButtonFontMediumBlueSizeLarge"
+            android:layout_width="250dp"
+            android:layout_height="68dp"
+            android:layout_marginBottom="64dp"
+            android:layout_marginTop="64dp"
+            android:textAllCaps="false"
+            android:text="@string/button_save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

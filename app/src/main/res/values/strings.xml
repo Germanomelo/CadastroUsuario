@@ -1,0 +1,74 @@
+<resources>
+    <string name="app_name">Desafio Gesuas</string>
+
+
+    <string name="title_register">Cadastro</string>
+    <string name="title_menu">Menu</string>
+    <string name="title_home">Início</string>
+    <string name="title_profile">Perfil</string>
+    <string name="title_notifications">Notifications</string>
+
+
+    <string name="name_label">Nome completo</string>
+    <string name="cpf_label">CPF</string>
+    <string name="date_birth_label">Data de Nascimento</string>
+    <string name="telefone_celular_label">Telefone celular</string>
+    <string name="select_service_label">Selecionar o serviço</string>
+    <string name="forward_to_label">Encaminhar para</string>
+    <string name="reason_label">Motivo</string>
+    <string name="age_label">Idade:</string>
+    <string name="cpf_label_2">CPF:</string>
+    <string name="date_birth_label_2">Data de nascimento:</string>
+    <string name="ok">OK</string>
+
+
+    <string name="name_full_hint">Ex. Maria da Silva</string>
+    <string name="cpf_hint">000.000.000–00</string>
+    <string name="date_hint">00/00/0000</string>
+    <string name="phone_hint">(99) 99999–9999</string>
+    <string name="age_hint">99 anos</string>
+    <string name="description_reason_hint">Descreva o motivo aqui</string>
+
+
+    <string name="button_register">Cadastrar</string>
+    <string name="button_continue">Continuar</string>
+    <string name="button_cancel">Cancelar</string>
+    <string name="button_forward">Encaminhar</string>
+    <string name="button_save">Salvar</string>
+    <string name="button_confirm">Confirmar</string>
+    <string name="button_back_to_register">Voltar para cadastro</string>
+
+
+    <string name="forwarding">Encaminhamento</string>
+    <string name="follow">Acompanhamento</string>
+    <string name="social_approach">Abordagem Social</string>
+    <string name="receive">Acolhimento</string>
+    <string name="scfv">SCFV</string>
+
+
+    <string name="cras">CRAS</string>
+    <string name="creas">CREAS</string>
+    <string name="def_public">Defensoria Pública</string>
+    <string name="min_public">Ministério Público</string>
+    <string name="jud_power">Poder Judiciário</string>
+
+    <!--Message Validations-->
+    <string name="massage_error_not_select_service">Selecione um serviço para continuar!</string>
+    <string name="massage_error_create_user">Error ao cadastrar usuário, tente novamente!</string>
+    <string name="massage_error_send_forward">Error ao fazer o encaminhamento, tente novamente!</string>
+    <string name="massage_error_date">Data inválida!</string>
+    <string name="massage_error_date_greater_than_current">Data fornecida é maior que a data atual!</string>
+    <string name="massage_error_date_150_years_old">Possui mais de 150 anos de idade!</string>
+    <string name="massage_error_cpf">CPF inválido!</string>
+    <string name="massage_error_phone">Telefone inválido!</string>
+    <string name="massage_error_name">Nome inválido!</string>
+    <string name="massage_error_field_null">Campo vazio!</string>
+    <string name="massage_error_field_motivo">Informe o motivo!</string>
+    <string name="massage_error_field_addressee">Informe o destinatário!</string>
+
+
+    <string name="message_confirm_send">Deseja confirmar o encaminhamento?</string>
+    <string name="message_success_forward">Encaminhamento realizado com sucesso!</string>
+
+
+</resources>

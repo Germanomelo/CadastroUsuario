@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/addUserFragment">
+
+    <fragment
+        android:id="@+id/addUserFragment"
+        android:name="com.gmsp.desafiocadastro.ui.registeruser.RegisterUserFragment"
+        android:label="fragment_add_user"
+        tools:layout="@layout/fragment_register_user" >
+        <action
+            android:id="@+id/action_addUserFragment_to_selectServiceFragment"
+            app:destination="@id/selectServiceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectServiceFragment"
+        android:name="com.gmsp.desafiocadastro.ui.selectservice.SelectServiceFragment"
+        android:label="fragment_select"
+        tools:layout="@layout/fragment_select_service" >
+        <action
+            android:id="@+id/action_selectServiceFragment_to_dispatchFragment"
+            app:destination="@id/dispatchFragment" />
+        <argument
+            android:name="User"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_selectServiceFragment_to_addUserFragment"
+            app:destination="@id/addUserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dispatchFragment"
+        android:name="com.gmsp.desafiocadastro.ui.dispatch.DispatchFragment"
+        android:label="fragment_dispatch"
+        tools:layout="@layout/fragment_dispatch" >
+        <argument
+            android:name="Forward"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_dispatchFragment_to_addUserFragment"
+            app:destination="@id/addUserFragment" />
+        <action
+            android:id="@+id/action_dispatchFragment_to_selectServiceFragment"
+            app:destination="@id/selectServiceFragment"
+            />
+    </fragment>
+</navigation>

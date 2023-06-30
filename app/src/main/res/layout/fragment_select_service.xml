@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_color"
+        tools:context=".ui.selectservice.SelectServiceFragment">
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/titlebar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/text_select_service"
+            style="@style/TextTopicFontMediumDarkGraySizeLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:text="@string/select_service_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include" />
+
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_select_service">
+
+            <RadioButton
+                android:id="@+id/radio_forward"
+                style="@style/TextFontRegularDarkGraySizeBase"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layoutDirection="rtl"
+                android:text="@string/forwarding"
+                android:textAlignment="textStart" />
+
+            <RadioButton
+                android:id="@+id/radio_accompany"
+                style="@style/TextFontRegularDarkGraySizeBase"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layoutDirection="rtl"
+                android:text="@string/follow"
+                android:textAlignment="textStart" />
+
+            <RadioButton
+                android:id="@+id/radio_approach_social"
+                style="@style/TextFontRegularDarkGraySizeBase"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layoutDirection="rtl"
+                android:text="@string/social_approach"
+                android:textAlignment="textStart" />
+
+            <RadioButton
+                android:id="@+id/radio_shelter"
+                style="@style/TextFontRegularDarkGraySizeBase"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layoutDirection="rtl"
+                android:text="@string/receive"
+                android:textAlignment="textStart" />
+
+            <RadioButton
+                android:id="@+id/radio_scfv"
+                style="@style/TextFontRegularDarkGraySizeBase"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layoutDirection="rtl"
+                android:text="@string/scfv"
+                android:textAlignment="textStart" />
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/button_continue"
+            style="@style/ButtonFontMediumBlueSizeLarge"
+            android:layout_width="250dp"
+            android:layout_height="68dp"
+            android:layout_marginBottom="64dp"
+            android:text="@string/button_continue"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radio_group" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

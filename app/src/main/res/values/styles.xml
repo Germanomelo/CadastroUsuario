@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextFontMediumBlueSizeLarge" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/primary_color</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/ubuntu_medium</item>
+    </style>
+
+    <style name="TextFontMediumBlueBase" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/primary_color</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/ubuntu_medium</item>
+    </style>
+
+    <style name="TextTitleFontBoldSizeSmall" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/background_color</item>
+        <item name="android:background">@color/primary_color</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/ubuntu_bold</item>
+    </style>
+
+    <style name="TextTopicFontMediumDarkGraySizeLarge" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/ubuntu_medium</item>
+    </style>
+
+    <style name="TextFontRegularGraySizeBase" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/ubuntu</item>
+    </style>
+
+    <style name="TextFontRegularDarkGraySizeBase" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/ubuntu</item>
+    </style>
+
+    <style name="TextFontMediumGraySizeBase" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/ubuntu_medium</item>
+    </style>
+
+    <style name="TextFontMediumDarkGraySizeLarge" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/ubuntu_medium</item>
+    </style>
+
+    <style name="ButtonFontMediumBlueSizeLarge"
+        parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textSize">16sp</item>
+        <item name="android:backgroundTint">@color/primary_color</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/ubuntu_medium</item>
+    </style>
+
+    <style name="ButtonFontMediumBlueSizeBase"
+        parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textSize">14sp</item>
+        <item name="android:backgroundTint">@color/primary_color</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/ubuntu_medium</item>
+    </style>
+
+    <style name="ButtonFontMediumWhiteBorderBlueSizeLarge"
+        parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textSize">16sp</item>
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="android:textColor">@color/primary_color</item>
+        <item name="android:fontFamily">@font/ubuntu_medium</item>
+    </style>
+
+    <style name="CustomDialog" parent="@android:style/Theme.NoTitleBar.Fullscreen" >
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+
+</resources>
