@@ -1,8 +1,10 @@
 package com.gmsp.desafiocadastro.domain.model
 
 data class Forward(
-    val from: User?,
+    var from: User?,
     var to: AddresseeEnum?,
     var motive: String?,
-    val service: ServiceType?
-)
+    var service: ServiceType?
+) {
+   constructor() : this(null, null,null,null)
+}

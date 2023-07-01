@@ -6,32 +6,33 @@
     app:startDestination="@id/registerUserFragment">
     <fragment
         android:id="@+id/registerUserFragment"
-        android:name="com.gmsp.desafiocadastro.ui.registeruser.RegisterUserFragment"
-        android:label="RegisterUserFragment" >
+        android:name="com.gmsp.desafiocadastro.ui.fragment.RegisterUserFragment"
+        android:label="" >
         <action
             android:id="@+id/action_registerUserFragment_to_selectServiceFragment"
             app:destination="@id/selectServiceFragment" />
     </fragment>
     <fragment
         android:id="@+id/selectServiceFragment"
-        android:name="com.gmsp.desafiocadastro.ui.selectservice.SelectServiceFragment"
-        android:label="SelectServiceFragment" >
-        <action
-            android:id="@+id/action_selectServiceFragment_to_registerUserFragment"
-            app:destination="@id/registerUserFragment" />
+        android:name="com.gmsp.desafiocadastro.ui.fragment.SelectServiceFragment"
+        android:label="" >
         <action
             android:id="@+id/action_selectServiceFragment_to_dispatchFragment"
             app:destination="@id/dispatchFragment" />
+        <action
+            android:id="@+id/action_selectServiceFragment_to_registerUserFragment"
+            app:destination="@id/registerUserFragment"
+            app:popUpTo="@id/registerUserFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/dispatchFragment"
-        android:name="com.gmsp.desafiocadastro.ui.dispatch.DispatchFragment"
-        android:label="DispatchFragment" >
-        <action
-            android:id="@+id/action_dispatchFragment_to_selectServiceFragment"
-            app:destination="@id/selectServiceFragment" />
+        android:name="com.gmsp.desafiocadastro.ui.fragment.DispatchFragment"
+        android:label="" >
         <action
             android:id="@+id/action_dispatchFragment_to_registerUserFragment"
-            app:destination="@id/registerUserFragment" />
+            app:destination="@id/registerUserFragment"
+            app:popUpTo="@id/registerUserFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>
