@@ -6,7 +6,7 @@ import java.util.Date
 
 data class User(
     val name: String,
-    val cpf: String,
-    val dateBirth: Date,
+    var cpf: String,
+    val dateBirth: Date?,
     val phone: String
 ):Serializable

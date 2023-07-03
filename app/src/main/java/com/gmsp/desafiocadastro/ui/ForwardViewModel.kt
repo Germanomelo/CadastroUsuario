@@ -1,5 +1,6 @@
 package com.gmsp.desafiocadastro.ui
 
+import android.text.Editable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,7 +11,9 @@ import com.gmsp.desafiocadastro.domain.model.Forward
 import com.gmsp.desafiocadastro.domain.model.ServiceType
 import com.gmsp.desafiocadastro.domain.model.User
 import com.gmsp.desafiocadastro.domain.usecase.SendForwardUseCase
+import com.gmsp.desafiocadastro.util.CPFFormatter
 import com.gmsp.desafiocadastro.util.DateManager
+import com.gmsp.desafiocadastro.util.formatterText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,8 +23,24 @@ class ForwardViewModel @Inject constructor(
     private val sendForwardUseCase: SendForwardUseCase
 ) : ViewModel() {
 
-    var forward = Forward()
+    /**
+     * Commons
+     */
 
+    var forward: Forward? = null
+
+    init {
+        resetForward()
+    }
+
+    fun resetForward() {
+        val user = User("", "", null, "")
+        forward = Forward(from = user, to = "", motive = "", service = null, )
+    }
+
+    /**
+     * FragmentRegisterUser
+     */
     private val _nameErrorResId = MutableLiveData<Int>()
     val nameErrorResId: LiveData<Int> = _nameErrorResId
 
@@ -33,6 +52,50 @@ class ForwardViewModel @Inject constructor(
 
     private val _phoneErrorResId = MutableLiveData<Int>()
     val phoneErrorResId: LiveData<Int> = _phoneErrorResId
+
+    private val _goFromRegisterUserToSelectService = MutableLiveData<Boolean>()
+    val goFromRegisterUserToSelectService: LiveData<Boolean?> = _goFromRegisterUserToSelectService
+
+    fun createUser(name: String, cpf: String, dateBirth: String, phone: String) {
+//        viewModelScope.launch {
+//            isFormValid = true
+//            validateName(name)
+//            validateDate(dateBirth)
+//            validateCPF(cpf)
+//            validatePhone(phone)
+
+//            if (isFormValid) {
+                val date = DateManager.stringToDate(dateBirth)
+                forward?.from = User(name, cpf, dateBirth = date, phone)
+                _goFromRegisterUserToSelectService.value = true
+//            } else {
+//                _goFromRegisterUserToSelectService.value = false
+//            }
+        }
+    }
+
+    /**
+     * FragmentSelectService
+     */
+
+    private val _service = MutableLiveData<String>()
+    val service: LiveData<String> = _service
+
+    private val _goFromSelectServiceToDispatch = MutableLiveData<Boolean>()
+    val goFromSelectServiceToDispatch: LiveData<Boolean?> = _goFromSelectServiceToDispatch
+
+    fun selectService(selectService: String) {
+        _service.value = selectService
+        forward?.service = ServiceType.fromString(selectService)
+    }
+
+    fun validateSelectService() {
+        _goFromSelectServiceToDispatch.value = forward?.service != null
+    }
+
+    /**
+     * FragmentDispatch
+     */
 
     private val _motiveErrorResId = MutableLiveData<Int>()
     val motiveErrorresId: LiveData<Int> = _motiveErrorResId
@@ -46,53 +109,33 @@ class ForwardViewModel @Inject constructor(
     private val _sendData = MutableLiveData<Boolean>()
     val sendData: LiveData<Boolean> = _sendData
 
-    private val _goToScreenSelectService = MutableLiveData<Boolean>()
-    val goToScreenSelectService: LiveData<Boolean?> = _goToScreenSelectService
-
-    private val _goToScreenDispatch = MutableLiveData<Boolean>()
-    val goToScreenDispatch: LiveData<Boolean?> = _goToScreenDispatch
-
     private var isFormValid = false
     private var isDataValid = false
 
-    fun createUser(name: String, cpf: String, dateBirth: String, phone: String) {
-        isFormValid = true
-        validateName(name)
-        validateDate(dateBirth)
-        validateCPF(cpf)
-        validatePhone(phone)
-
-        if (isFormValid) {
-            val date = DateManager.stringToDate(dateBirth)
-            forward.from = User(name, cpf, dateBirth = date, phone)
-            _goToScreenSelectService.value = true
-        } else {
-            _goToScreenSelectService.value = false
-        }
+    fun getDate(): String {
+        if (forward?.from?.dateBirth != null)
+            return DateManager.dateToString(forward?.from?.dateBirth!!)
+        return ""
     }
 
-    fun selectService(serviceType: ServiceType) {
-        forward.service = serviceType
+    fun getAge(): String {
+        if (forward?.from?.dateBirth != null)
+            return DateManager.calculateUserAgetoString(forward?.from?.dateBirth!!)
+        return ""
     }
 
     fun selectMotive(motive: String) {
-        forward.motive = motive
+        forward?.motive = motive
     }
 
     fun selectAddressee(to: AddresseeEnum) {
-        forward.to = to
-    }
-
-    fun nextScreenDispatch() {
-        if (forward.service != null) {
-            _goToScreenDispatch.value = true
-        }
+        forward?.to = to
     }
 
     fun validateDataToSend() {
         isDataValid = true
-        validateMotive(forward.motive)
-        validateAddressee(forward.to)
+        validateMotive(forward?.motive)
+        validateAddressee(forward?.to)
         _confirmDataValidate.value = isDataValid
     }
 
@@ -100,10 +143,10 @@ class ForwardViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 forward = sendForwardUseCase.invoke(
-                    forward.from!!,
-                    forward.to!!,
-                    forward.motive!!,
-                    forward.service!!
+                    forward?.from!!,
+                    forward?.to!!,
+                    forward?.motive!!,
+                    forward?.service!!
                 )
                 _sendData.value = true
             } catch (e: Exception) {
@@ -111,6 +154,10 @@ class ForwardViewModel @Inject constructor(
             }
         }
     }
+
+    /**
+     * Validations
+     */
 
     private fun validateDate(date: String) {
         if (date.isEmpty()) {
@@ -165,9 +212,4 @@ class ForwardViewModel @Inject constructor(
             isDataValid = false
         }
     }
-
-    fun clearData() {
-        forward = Forward()
-    }
-
 }
