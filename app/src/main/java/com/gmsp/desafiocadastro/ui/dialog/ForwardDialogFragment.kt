@@ -60,7 +60,6 @@ class ForwardDialogFragment : DialogFragment() {
     }
 
     private fun setInitDate(to: AddresseeType?) {
-        Log.d("Germano",to.toString())
         when (to) {
             AddresseeType.CRAS -> setSelectItem(binding.textCras)
             AddresseeType.CREAS -> setSelectItem(binding.textCreas)
