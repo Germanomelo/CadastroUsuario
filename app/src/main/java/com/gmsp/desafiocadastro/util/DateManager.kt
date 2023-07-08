@@ -18,6 +18,10 @@ class DateManager {
         fun calculateUserAgetoString(birthDate: Date): String {
             return "${calculateUserAge(birthDate)} anos"
         }
+        fun calculateUserAgetoString(birthDate: String): String {
+            return "${calculateUserAge(birthDate)} anos"
+        }
+
         fun calculateUserAge(birthDate: Date): Int {
             val today = Calendar.getInstance()
             val calBirthDate = Calendar.getInstance().apply { time = birthDate }

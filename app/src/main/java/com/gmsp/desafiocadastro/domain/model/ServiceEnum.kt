@@ -5,5 +5,10 @@ enum class ServiceType(val value: String){
     ACCOMPANY("Acompanhamento"),
     APPROACH_SOCIAL("Abordagem Social"),
     SHELTER("Acolhimento"),
-    SCFV("SCFV")
+    SCFV("SCFV");
+
+    companion object {
+        private val map = ServiceType.values().associateBy(ServiceType::value)
+        fun fromString(ServiceType: String) = map[ServiceType]
+    }
 }

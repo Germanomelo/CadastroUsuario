@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Desafio Gesuas</string>
+    <string name="app_name">Cadastro Gesuas</string>
 
 
     <string name="title_register">Cadastro</string>
@@ -42,7 +42,7 @@
     <string name="forwarding">Encaminhamento</string>
     <string name="follow">Acompanhamento</string>
     <string name="social_approach">Abordagem Social</string>
-    <string name="receive">Acolhimento</string>
+    <string name="shelter">Acolhimento</string>
     <string name="scfv">SCFV</string>
 
 

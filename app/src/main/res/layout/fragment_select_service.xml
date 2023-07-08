@@ -1,117 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
+    tools:context=".ui.fragment.SelectServiceFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+        <variable
+            name="selectServiceFragment"
+            type="com.gmsp.desafiocadastro.ui.fragment.SelectServiceFragment" />
+
+        <variable
+            name="viewModel"
+            type="com.gmsp.desafiocadastro.ui.ForwardViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_color"
-        tools:context=".ui.selectservice.SelectServiceFragment">
+        android:fillViewport="true">
 
-        <include
-            android:id="@+id/include"
-            layout="@layout/titlebar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/text_select_service"
-            style="@style/TextTopicFontMediumDarkGraySizeLarge"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:text="@string/select_service_label"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include" />
+            android:layout_height="match_parent"
+            android:background="@color/background_color"
+            tools:context=".ui.fragment.SelectServiceFragment">
 
-        <RadioGroup
-            android:id="@+id/radio_group"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_select_service">
+            <include
+                android:id="@+id/include"
+                layout="@layout/titlebar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-            <RadioButton
-                android:id="@+id/radio_forward"
-                style="@style/TextFontRegularDarkGraySizeBase"
+            <TextView
+                android:id="@+id/text_select_service"
+                style="@style/TextTopicFontMediumDarkGraySizeLarge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layoutDirection="rtl"
-                android:text="@string/forwarding"
-                android:textAlignment="textStart" />
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:text="@string/select_service_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/include" />
 
-            <RadioButton
-                android:id="@+id/radio_accompany"
-                style="@style/TextFontRegularDarkGraySizeBase"
+            <RadioGroup
+                android:id="@+id/radio_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layoutDirection="rtl"
-                android:text="@string/follow"
-                android:textAlignment="textStart" />
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_select_service">
 
-            <RadioButton
-                android:id="@+id/radio_approach_social"
-                style="@style/TextFontRegularDarkGraySizeBase"
+                <RadioButton
+                    android:id="@+id/radio_forward"
+                    style="@style/TextFontRegularDarkGraySizeBase"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:checked="@{viewModel.serviceType.equals(@string/forwarding)}"
+                    android:layoutDirection="rtl"
+                    android:onClick="@{() -> viewModel.selectService(@string/forwarding)}"
+                    android:text="@string/forwarding"
+                    android:textAlignment="textStart" />
+
+                <RadioButton
+                    android:id="@+id/radio_accompany"
+                    style="@style/TextFontRegularDarkGraySizeBase"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:checked="@{viewModel.serviceType.equals(@string/follow)}"
+                    android:layoutDirection="rtl"
+                    android:onClick="@{() -> viewModel.selectService(@string/follow)}"
+                    android:text="@string/follow"
+                    android:textAlignment="textStart" />
+
+                <RadioButton
+                    android:id="@+id/radio_approach_social"
+                    style="@style/TextFontRegularDarkGraySizeBase"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:checked="@{viewModel.serviceType.equals(@string/social_approach)}"
+                    android:layoutDirection="rtl"
+                    android:onClick="@{() -> viewModel.selectService(@string/social_approach)}"
+                    android:text="@string/social_approach"
+                    android:textAlignment="textStart" />
+
+                <RadioButton
+                    android:id="@+id/radio_shelter"
+                    style="@style/TextFontRegularDarkGraySizeBase"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:checked="@{viewModel.serviceType.equals(@string/shelter)}"
+                    android:layoutDirection="rtl"
+                    android:onClick="@{() -> viewModel.selectService(@string/shelter)}"
+                    android:text="@string/shelter"
+                    android:textAlignment="textStart" />
+
+                <RadioButton
+                    android:id="@+id/radio_scfv"
+                    style="@style/TextFontRegularDarkGraySizeBase"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:checked="@{viewModel.serviceType.equals(@string/scfv)}"
+                    android:layoutDirection="rtl"
+                    android:onClick="@{() -> viewModel.selectService(@string/scfv)}"
+                    android:text="@string/scfv"
+                    android:textAlignment="textStart" />
+
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/button_continue"
+                style="@style/ButtonFontMediumBlueSizeLarge"
+                android:layout_width="250dp"
+                android:layout_height="68dp"
+                android:layout_marginBottom="64dp"
+                android:onClick="@{() -> selectServiceFragment.onClickButtonContinue()}"
+                android:text="@string/button_continue"
+                android:textAllCaps="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layoutDirection="rtl"
-                android:text="@string/social_approach"
-                android:textAlignment="textStart" />
-
-            <RadioButton
-                android:id="@+id/radio_shelter"
-                style="@style/TextFontRegularDarkGraySizeBase"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layoutDirection="rtl"
-                android:text="@string/receive"
-                android:textAlignment="textStart" />
-
-            <RadioButton
-                android:id="@+id/radio_scfv"
-                style="@style/TextFontRegularDarkGraySizeBase"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layoutDirection="rtl"
-                android:text="@string/scfv"
-                android:textAlignment="textStart" />
-
-        </RadioGroup>
-
-        <Button
-            android:id="@+id/button_continue"
-            style="@style/ButtonFontMediumBlueSizeLarge"
-            android:layout_width="250dp"
-            android:layout_height="68dp"
-            android:layout_marginBottom="64dp"
-            android:text="@string/button_continue"
-            android:textAllCaps="false"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radio_group" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+                android:layout_height="150dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radio_group" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

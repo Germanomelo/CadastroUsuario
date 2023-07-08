@@ -1,225 +1,246 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
+    tools:context=".ui.fragment.DispatchFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+        <variable
+            name="dispatchFragment"
+            type="com.gmsp.desafiocadastro.ui.fragment.DispatchFragment" />
+
+        <variable
+            name="viewModel"
+            type="com.gmsp.desafiocadastro.ui.ForwardViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_color"
-        tools:context=".ui.dispatch.DispatchFragment">
+        android:fillViewport="true">
 
-        <include
-            android:id="@+id/include"
-            layout="@layout/titlebar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/text_name"
-            style="@style/TextFontRegularDarkGraySizeBase"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:text="@string/name_full_hint"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include" />
+            android:layout_height="match_parent"
+            android:background="@color/background_color"
+            tools:context=".ui.fragment.DispatchFragment">
 
-        <TextView
-            android:id="@+id/text_cpf"
-            style="@style/TextFontRegularDarkGraySizeBase"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="8dp"
-            android:text="@string/cpf_label_2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_name" />
+            <include
+                android:id="@+id/include"
+                layout="@layout/titlebar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/text_cpf_value"
-            style="@style/TextFontRegularGraySizeBase"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/cpf_hint"
-            app:layout_constraintStart_toEndOf="@+id/text_cpf"
-            app:layout_constraintTop_toBottomOf="@+id/text_name" />
+            <TextView
+                android:id="@+id/text_name"
+                style="@style/TextFontRegularDarkGraySizeBase"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:text="@{viewModel.userName}"
+                tools:text="@string/name_full_hint"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/include" />
 
-        <TextView
-            android:id="@+id/text_date_birth"
-            style="@style/TextFontRegularDarkGraySizeBase"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="8dp"
-            android:text="@string/date_birth_label_2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_cpf" />
+            <TextView
+                android:id="@+id/text_cpf"
+                style="@style/TextFontRegularDarkGraySizeBase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="8dp"
+                android:text="@string/cpf_label_2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_name" />
 
-        <TextView
-            android:id="@+id/text_data_birth_value"
-            style="@style/TextFontRegularGraySizeBase"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/date_hint"
-            app:layout_constraintStart_toEndOf="@+id/text_date_birth"
-            app:layout_constraintTop_toBottomOf="@+id/text_cpf" />
+            <TextView
+                android:id="@+id/text_cpf_value"
+                style="@style/TextFontRegularGraySizeBase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@{viewModel.userCPF}"
+                tools:text="@string/cpf_hint"
+                app:layout_constraintStart_toEndOf="@+id/text_cpf"
+                app:layout_constraintTop_toBottomOf="@+id/text_name" />
 
-        <TextView
-            android:id="@+id/text_age"
-            style="@style/TextFontRegularDarkGraySizeBase"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="@string/age_label"
-            app:layout_constraintEnd_toStartOf="@+id/text_age_value"
-            app:layout_constraintTop_toBottomOf="@+id/text_cpf" />
+            <TextView
+                android:id="@+id/text_date_birth"
+                style="@style/TextFontRegularDarkGraySizeBase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="8dp"
+                android:text="@string/date_birth_label_2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_cpf" />
 
-        <TextView
-            android:id="@+id/text_age_value"
-            style="@style/TextFontRegularGraySizeBase"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            android:text="@string/age_hint"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_cpf" />
+            <TextView
+                android:id="@+id/text_data_birth_value"
+                style="@style/TextFontRegularGraySizeBase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@{viewModel.userDateBirth}"
+                tools:text="@string/date_hint"
+                app:layout_constraintStart_toEndOf="@+id/text_date_birth"
+                app:layout_constraintTop_toBottomOf="@+id/text_cpf" />
 
-        <View
-            android:id="@+id/view_forward_to"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="32dp"
-            android:background="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_date_birth"></View>
+            <TextView
+                android:id="@+id/text_age"
+                style="@style/TextFontRegularDarkGraySizeBase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/age_label"
+                app:layout_constraintEnd_toStartOf="@+id/text_age_value"
+                app:layout_constraintTop_toBottomOf="@+id/text_cpf" />
 
-        <TextView
-            android:id="@+id/text_forward_to"
-            style="@style/TextFontMediumBlueSizeLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:text="@string/forward_to_label"
-            app:layout_constraintBottom_toBottomOf="@+id/view_forward_to"
-            app:layout_constraintStart_toStartOf="@+id/view_forward_to"
-            app:layout_constraintTop_toTopOf="@+id/view_forward_to" />
+            <TextView
+                android:id="@+id/text_age_value"
+                style="@style/TextFontRegularGraySizeBase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:text="@{viewModel.age}"
+                tools:text="@string/age_hint"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_cpf" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:src="@drawable/ic_arrow_right_24dp"
-            app:layout_constraintBottom_toBottomOf="@+id/view_forward_to"
-            app:layout_constraintEnd_toEndOf="@+id/view_forward_to"
-            app:layout_constraintTop_toTopOf="@+id/view_forward_to" />
+            <View
+                android:id="@+id/view_forward_to"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="32dp"
+                android:background="@color/white"
+                android:onClick="@{() -> dispatchFragment.onClickViewFoward()}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_date_birth"/>
 
-        <View
-            android:id="@+id/view_motive"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:background="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_forward_to" />
+            <TextView
+                android:id="@+id/text_forward_to"
+                style="@style/TextFontMediumBlueSizeLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:text="@string/forward_to_label"
+                app:layout_constraintBottom_toBottomOf="@+id/view_forward_to"
+                app:layout_constraintStart_toStartOf="@+id/view_forward_to"
+                app:layout_constraintTop_toTopOf="@+id/view_forward_to" />
 
-        <TextView
-            android:id="@+id/text_reason"
-            style="@style/TextFontMediumBlueSizeLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:text="@string/reason_label"
-            app:layout_constraintBottom_toBottomOf="@+id/view_motive"
-            app:layout_constraintStart_toStartOf="@+id/view_motive"
-            app:layout_constraintTop_toTopOf="@+id/view_motive" />
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:src="@drawable/ic_arrow_right_24dp"
+                app:layout_constraintBottom_toBottomOf="@+id/view_forward_to"
+                app:layout_constraintEnd_toEndOf="@+id/view_forward_to"
+                app:layout_constraintTop_toTopOf="@+id/view_forward_to" />
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:src="@drawable/ic_arrow_right_24dp"
-            app:layout_constraintBottom_toBottomOf="@+id/view_motive"
-            app:layout_constraintEnd_toEndOf="@+id/view_motive"
-            app:layout_constraintTop_toTopOf="@+id/view_motive" />
+            <View
+                android:id="@+id/view_motive"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:onClick="@{() -> dispatchFragment.onClickViewMotive()}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_forward_to" />
 
-        <Button
-            android:id="@+id/button_cancel"
-            style="@style/ButtonFontMediumWhiteBorderBlueSizeLarge"
-            android:layout_width="0dp"
-            android:layout_height="68dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginBottom="64dp"
-            android:layout_weight="1"
-            android:text="@string/button_cancel"
-            android:textAllCaps="false"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintWidth_default="percent"
-            app:layout_constraintWidth_percent="0.4"
-            app:strokeColor="@color/primary_color" />
+            <TextView
+                android:id="@+id/text_reason"
+                style="@style/TextFontMediumBlueSizeLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:text="@string/reason_label"
+                app:layout_constraintBottom_toBottomOf="@+id/view_motive"
+                app:layout_constraintStart_toStartOf="@+id/view_motive"
+                app:layout_constraintTop_toTopOf="@+id/view_motive" />
 
-        <Button
-            android:id="@+id/button_forward"
-            style="@style/ButtonFontMediumBlueSizeLarge"
-            android:layout_width="0dp"
-            android:layout_height="68dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="64dp"
-            android:layout_weight="1"
-            android:text="@string/button_forward"
-            android:textAllCaps="false"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintWidth_default="percent"
-            app:layout_constraintWidth_percent="0.40" />
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:src="@drawable/ic_arrow_right_24dp"
+                app:layout_constraintBottom_toBottomOf="@+id/view_motive"
+                app:layout_constraintEnd_toEndOf="@+id/view_motive"
+                app:layout_constraintTop_toTopOf="@+id/view_motive" />
 
-        <TextView
-            android:id="@+id/text_addressee_value"
-            style="@style/TextFontMediumGraySizeBase"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:text=""
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/view_forward_to"
-            app:layout_constraintEnd_toStartOf="@+id/imageView2"
-            app:layout_constraintTop_toTopOf="@+id/view_forward_to" />
+            <Button
+                android:id="@+id/button_cancel"
+                style="@style/ButtonFontMediumWhiteBorderBlueSizeLarge"
+                android:layout_width="0dp"
+                android:layout_height="68dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginBottom="64dp"
+                android:layout_weight="1"
+                android:text="@string/button_cancel"
+                android:textAllCaps="false"
+                android:onClick="@{() -> dispatchFragment.onClickCancel()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.4"
+                app:strokeColor="@color/primary_color" />
 
-        <TextView
-            android:id="@+id/text_motive_value"
-            style="@style/TextFontMediumGraySizeBase"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:text=""
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/view_motive"
-            app:layout_constraintEnd_toStartOf="@+id/imageView3"
-            app:layout_constraintTop_toTopOf="@+id/view_motive" />
+            <Button
+                android:id="@+id/button_forward"
+                style="@style/ButtonFontMediumBlueSizeLarge"
+                android:layout_width="0dp"
+                android:layout_height="68dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="64dp"
+                android:layout_weight="1"
+                android:text="@string/button_forward"
+                android:onClick="@{() -> dispatchFragment.onClickButtonForwarding()}"
+                android:textAllCaps="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.40" />
 
+            <TextView
+                android:id="@+id/text_addressee_value"
+                style="@style/TextFontMediumGraySizeBase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text=""
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/view_forward_to"
+                app:layout_constraintEnd_toStartOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="@+id/view_forward_to" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_motive" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+            <TextView
+                android:id="@+id/text_motive_value"
+                style="@style/TextFontMediumGraySizeBase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text=""
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/view_motive"
+                app:layout_constraintEnd_toStartOf="@+id/imageView3"
+                app:layout_constraintTop_toTopOf="@+id/view_motive" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_motive" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>
