@@ -104,7 +104,7 @@ class DispatchFragment : Fragment(), ForwardDialogListener, MotiveDialogListener
 
     fun onClickViewFoward(){
         val dialogFragment = ForwardDialogFragment()
-        dialogFragment.setDialogListener(this, AddresseeType.fromString(sharedViewModel.addresseeType.value.toString()))
+        dialogFragment.setDialogListener(this, sharedViewModel.addresseeType.value)
         dialogFragment.show(parentFragmentManager, "TagForward")
     }
 

@@ -3,6 +3,7 @@ package com.gmsp.desafiocadastro.ui.dialog
 import android.content.res.Resources
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -32,26 +33,42 @@ class ForwardDialogFragment : DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentForwardDialogBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onStart() {
         super.onStart()
-        dialog?.window?.setGravity(Gravity.BOTTOM)
-        setHeightPercent(60)
-        dialog?.window?.setBackgroundDrawableResource(R.drawable.shape_white_radius_top)
+        setupLayout()
         setListeners()
         setInitDate(to)
     }
 
-    fun DialogFragment.setHeightPercent(percentage: Int) {
+    private fun setupLayout(){
+        dialog?.window?.setGravity(Gravity.BOTTOM)
+        setHeightPercent(60)
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.shape_white_radius_top)
+    }
+
+    private fun DialogFragment.setHeightPercent(percentage: Int) {
         val percent = percentage.toFloat() / 100
         val dm = Resources.getSystem().displayMetrics
         val rect = dm.run { Rect(0, 0, widthPixels, heightPixels) }
         val percentWidth = rect.height() * percent
         dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, percentWidth.toInt())
+    }
+
+    private fun setInitDate(to: AddresseeType?) {
+        Log.d("Germano",to.toString())
+        when (to) {
+            AddresseeType.CRAS -> setSelectItem(binding.textCras)
+            AddresseeType.CREAS -> setSelectItem(binding.textCreas)
+            AddresseeType.JUDICIAL_POWER -> setSelectItem(binding.textJudPower)
+            AddresseeType.PUBLIC_MINISTRY -> setSelectItem(binding.textMinPublic)
+            AddresseeType.PUBLIC_DEFENSE -> setSelectItem(binding.textDefPublic)
+            else -> {}
+        }
     }
 
     private fun setListeners() {
@@ -85,21 +102,9 @@ class ForwardDialogFragment : DialogFragment() {
             to = AddresseeType.PUBLIC_MINISTRY
         }
 
-
         binding.buttonSave.setOnClickListener {
             dialogListener?.onForwardDialogResult(to)
             dismiss()
-        }
-    }
-
-    private fun setInitDate(to: AddresseeType?) {
-        when (to) {
-            AddresseeType.CRAS -> setSelectItem(binding.textCras)
-            AddresseeType.CREAS -> setSelectItem(binding.textCreas)
-            AddresseeType.JUDICIAL_POWER -> setSelectItem(binding.textJudPower)
-            AddresseeType.PUBLIC_MINISTRY -> setSelectItem(binding.textMinPublic)
-            AddresseeType.PUBLIC_DEFENSE -> setSelectItem(binding.textDefPublic)
-            else -> {}
         }
     }
 

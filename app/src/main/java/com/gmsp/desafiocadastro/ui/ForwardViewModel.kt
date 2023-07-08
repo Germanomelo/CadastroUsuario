@@ -220,7 +220,7 @@ class ForwardViewModel @Inject constructor(
     }
 
     private fun isServiceValid(): Boolean {
-        if (serviceType.value == null) {
+        if (serviceType.value?.isEmpty() == true) {
             _motiveErrorResId.value = R.string.massage_error_field_motivo
             return false
         }
