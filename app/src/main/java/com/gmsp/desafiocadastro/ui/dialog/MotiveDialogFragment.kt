@@ -1,6 +1,9 @@
 package com.gmsp.desafiocadastro.ui.dialog
 
+import android.content.res.Resources
+import android.graphics.Rect
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,22 +24,31 @@ class MotiveDialogFragment : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(DialogFragment.STYLE_NORMAL, R.style.CustomDialog);
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMotiveDialogBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onStart() {
         super.onStart()
-        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog?.window?.setGravity(Gravity.BOTTOM)
+        setHeightPercent(85)
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.shape_white_radius_top)
         setListeners()
         setInitDate(motive)
+    }
+
+    fun DialogFragment.setHeightPercent(percentage: Int) {
+        val percent = percentage.toFloat() / 100
+        val dm = Resources.getSystem().displayMetrics
+        val rect = dm.run { Rect(0, 0, widthPixels, heightPixels) }
+        val percentWidth = rect.height() * percent
+        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, percentWidth.toInt())
     }
 
     private fun setListeners() {

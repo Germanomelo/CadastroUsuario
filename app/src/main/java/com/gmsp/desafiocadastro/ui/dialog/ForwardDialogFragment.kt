@@ -1,6 +1,9 @@
 package com.gmsp.desafiocadastro.ui.dialog
 
+import android.content.res.Resources
+import android.graphics.Rect
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,7 +27,6 @@ class ForwardDialogFragment : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(DialogFragment.STYLE_NORMAL, R.style.CustomDialog);
     }
 
     override fun onCreateView(
@@ -37,9 +39,19 @@ class ForwardDialogFragment : DialogFragment() {
 
     override fun onStart() {
         super.onStart()
-        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        dialog?.window?.setGravity(Gravity.BOTTOM)
+        setHeightPercent(60)
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.shape_white_radius_top)
         setListeners()
         setInitDate(to)
+    }
+
+    fun DialogFragment.setHeightPercent(percentage: Int) {
+        val percent = percentage.toFloat() / 100
+        val dm = Resources.getSystem().displayMetrics
+        val rect = dm.run { Rect(0, 0, widthPixels, heightPixels) }
+        val percentWidth = rect.height() * percent
+        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, percentWidth.toInt())
     }
 
     private fun setListeners() {
