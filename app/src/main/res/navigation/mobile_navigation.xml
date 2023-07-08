@@ -19,11 +19,6 @@
         <action
             android:id="@+id/action_selectServiceFragment_to_dispatchFragment"
             app:destination="@id/dispatchFragment" />
-        <action
-            android:id="@+id/action_selectServiceFragment_to_registerUserFragment"
-            app:destination="@id/registerUserFragment"
-            app:popUpTo="@id/registerUserFragment"
-            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/dispatchFragment"
@@ -33,6 +28,6 @@
             android:id="@+id/action_dispatchFragment_to_registerUserFragment"
             app:destination="@id/registerUserFragment"
             app:popUpTo="@id/registerUserFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="true"/>
     </fragment>
 </navigation>

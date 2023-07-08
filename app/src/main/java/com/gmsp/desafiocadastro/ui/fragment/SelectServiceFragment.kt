@@ -32,27 +32,21 @@ class SelectServiceFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
             viewModel = sharedViewModel
+            lifecycleOwner = viewLifecycleOwner
             selectServiceFragment = this@SelectServiceFragment
         }
-        observeViewModelEvents()
     }
 
-    private fun observeViewModelEvents() {
-        sharedViewModel.goFromSelectServiceToDispatch.observe(viewLifecycleOwner){ goTo ->
-            if (goTo == true)
-                findNavController().navigate(R.id.action_selectServiceFragment_to_dispatchFragment)
-            else {
-                Toast.makeText(
-                    requireContext(),
-                    getString(R.string.massage_error_not_select_service),
-                    Toast.LENGTH_LONG
-                ).show()
-            }
+    fun onClickButtonContinue() {
+        if (sharedViewModel.isValidationSelectService()) {
+            findNavController().navigate(R.id.action_selectServiceFragment_to_dispatchFragment)
+        } else {
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.massage_error_not_select_service),
+                Toast.LENGTH_LONG
+            ).show()
         }
-    }
-
-    fun onClickButtonContinue(){
-        sharedViewModel.validateSelectService()
     }
 
     override fun onDestroyView() {

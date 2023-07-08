@@ -12,7 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.gmsp.desafiocadastro.R
 import com.gmsp.desafiocadastro.databinding.FragmentDispatchBinding
-import com.gmsp.desafiocadastro.domain.model.AddresseeEnum
+import com.gmsp.desafiocadastro.domain.model.AddresseeType
 import com.gmsp.desafiocadastro.ui.ForwardViewModel
 import com.gmsp.desafiocadastro.ui.dialog.ConfirmDialogFragment
 import com.gmsp.desafiocadastro.ui.dialog.ConfirmDialogListener
@@ -22,7 +22,6 @@ import com.gmsp.desafiocadastro.ui.dialog.MotiveDialogFragment
 import com.gmsp.desafiocadastro.ui.dialog.MotiveDialogListener
 import com.gmsp.desafiocadastro.ui.dialog.SuccessDialogFragment
 import com.gmsp.desafiocadastro.ui.dialog.SuccessDialogListener
-import com.gmsp.desafiocadastro.util.DateManager
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -46,40 +45,11 @@ class DispatchFragment : Fragment(), ForwardDialogListener, MotiveDialogListener
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
             viewModel = sharedViewModel
+            lifecycleOwner = viewLifecycleOwner
             dispatchFragment = this@DispatchFragment
         }
 
         observeViewModelEvents()
-        setData()
-    }
-
-
-    private fun setData() {
-        binding?.textName?.text = sharedViewModel.forward?.from?.name
-        binding?.textCpfValue?.text = sharedViewModel.forward?.from?.cpf
-        sharedViewModel.forward?.from?.dateBirth?.let { dateOfBirth ->
-            binding?.textDataBirthValue?.text = DateManager.dateToString(dateOfBirth)
-            binding?.textAgeValue?.text = DateManager.calculateUserAgetoString(dateOfBirth)
-        }
-    }
-
-    fun onClickButtonForwarding(){
-        sharedViewModel.validateDataToSend()
-    }
-    fun onClickCancel(){
-        findNavController().navigate(R.id.action_dispatchFragment_to_registerUserFragment)
-    }
-
-    fun onClickViewFoward(){
-        val dialogFragment = ForwardDialogFragment()
-        dialogFragment.setDialogListener(this, sharedViewModel.forward?.to)
-        dialogFragment.show(parentFragmentManager, "TagForward")
-    }
-
-    fun onClickViewMotive(){
-        val dialogFragment = MotiveDialogFragment()
-        dialogFragment.setDialogListener(this, sharedViewModel.forward?.motive)
-        dialogFragment.show(parentFragmentManager, "TagMotive")
     }
 
     private fun observeViewModelEvents() {
@@ -105,15 +75,7 @@ class DispatchFragment : Fragment(), ForwardDialogListener, MotiveDialogListener
             )
         }
 
-        sharedViewModel.confirmDataValidate.observe(viewLifecycleOwner) { result ->
-            if(result){
-                val dialogFragment = ConfirmDialogFragment()
-                dialogFragment.setDialogListener(this)
-                dialogFragment.show(parentFragmentManager, "TagConfirm")
-            }
-        }
-
-        sharedViewModel.sendData.observe(viewLifecycleOwner) {result ->
+        sharedViewModel.sendData.observe(viewLifecycleOwner) { result ->
             if (!result) {
                 Toast.makeText(
                     requireContext(),
@@ -128,7 +90,31 @@ class DispatchFragment : Fragment(), ForwardDialogListener, MotiveDialogListener
         }
     }
 
-    override fun onForwardDialogResult(result: AddresseeEnum?) {
+    fun onClickButtonForwarding(){
+        if(sharedViewModel.isValidationDispatch()){
+            val dialogFragment = ConfirmDialogFragment()
+            dialogFragment.setDialogListener(this)
+            dialogFragment.show(parentFragmentManager, "TagConfirm")
+        }
+    }
+    fun onClickCancel(){
+        sharedViewModel.resetData()
+        findNavController().navigate(R.id.action_dispatchFragment_to_registerUserFragment)
+    }
+
+    fun onClickViewFoward(){
+        val dialogFragment = ForwardDialogFragment()
+        dialogFragment.setDialogListener(this, AddresseeType.fromString(sharedViewModel.addresseeType.value.toString()))
+        dialogFragment.show(parentFragmentManager, "TagForward")
+    }
+
+    fun onClickViewMotive(){
+        val dialogFragment = MotiveDialogFragment()
+        dialogFragment.setDialogListener(this, sharedViewModel.motive.value.toString())
+        dialogFragment.show(parentFragmentManager, "TagMotive")
+    }
+
+    override fun onForwardDialogResult(result: AddresseeType?) {
         if(result != null) {
             sharedViewModel.selectAddressee(result)
             binding?.textAddresseeValue?.text = result.value
@@ -144,7 +130,7 @@ class DispatchFragment : Fragment(), ForwardDialogListener, MotiveDialogListener
 
     override fun onMotiveDialogResult(result: String) {
         if(result.isNotBlank()) {
-            sharedViewModel.selectMotive(result)
+            sharedViewModel.setMotive(result)
             binding?.textMotiveValue?.text = getString(R.string.ok)
             binding?.textMotiveValue?.visibility = View.VISIBLE
             binding?.textMotiveValue?.setTextColor(
@@ -157,11 +143,17 @@ class DispatchFragment : Fragment(), ForwardDialogListener, MotiveDialogListener
     }
 
     override fun onConfirmDialogResult() {
-        sharedViewModel.sendFoward()
+        sharedViewModel.sendDataFoward()
     }
 
     override fun onSuccessDialogResult() {
+        sharedViewModel.resetData()
         findNavController().navigate(R.id.action_dispatchFragment_to_registerUserFragment)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 
 }

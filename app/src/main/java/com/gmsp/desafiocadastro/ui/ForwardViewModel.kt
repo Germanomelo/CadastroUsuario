@@ -1,19 +1,15 @@
 package com.gmsp.desafiocadastro.ui
 
-import android.text.Editable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gmsp.desafiocadastro.R
-import com.gmsp.desafiocadastro.domain.model.AddresseeEnum
-import com.gmsp.desafiocadastro.domain.model.Forward
+import com.gmsp.desafiocadastro.domain.model.AddresseeType
 import com.gmsp.desafiocadastro.domain.model.ServiceType
 import com.gmsp.desafiocadastro.domain.model.User
 import com.gmsp.desafiocadastro.domain.usecase.SendForwardUseCase
-import com.gmsp.desafiocadastro.util.CPFFormatter
 import com.gmsp.desafiocadastro.util.DateManager
-import com.gmsp.desafiocadastro.util.formatterText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,23 +20,32 @@ class ForwardViewModel @Inject constructor(
 ) : ViewModel() {
 
     /**
-     * Commons
-     */
+     * Data
+     **/
+    private val _userName = MutableLiveData<String>()
+    val userName: LiveData<String> = _userName
 
-    var forward: Forward? = null
+    private val _userCPF = MutableLiveData<String>()
+    val userCPF: LiveData<String> = _userCPF
 
-    init {
-        resetForward()
-    }
+    private val _userDateBirth = MutableLiveData<String>()
+    val userDateBirth: LiveData<String> = _userDateBirth
 
-    fun resetForward() {
-        val user = User("", "", null, "")
-        forward = Forward(from = user, to = "", motive = "", service = null, )
-    }
+    private val _userPhone = MutableLiveData<String>()
+    val userPhone: LiveData<String> = _userPhone
+
+    private val _motive = MutableLiveData<String>()
+    val motive: LiveData<String> = _motive
+
+    private val _serviceType = MutableLiveData<String>()
+    val serviceType: LiveData<String> = _serviceType
+
+    private val _addresseeType = MutableLiveData<AddresseeType?>()
+    val addresseeType: LiveData<AddresseeType?> = _addresseeType
 
     /**
-     * FragmentRegisterUser
-     */
+     * Error
+     **/
     private val _nameErrorResId = MutableLiveData<Int>()
     val nameErrorResId: LiveData<Int> = _nameErrorResId
 
@@ -53,102 +58,113 @@ class ForwardViewModel @Inject constructor(
     private val _phoneErrorResId = MutableLiveData<Int>()
     val phoneErrorResId: LiveData<Int> = _phoneErrorResId
 
-    private val _goFromRegisterUserToSelectService = MutableLiveData<Boolean>()
-    val goFromRegisterUserToSelectService: LiveData<Boolean?> = _goFromRegisterUserToSelectService
-
-    fun createUser(name: String, cpf: String, dateBirth: String, phone: String) {
-//        viewModelScope.launch {
-//            isFormValid = true
-//            validateName(name)
-//            validateDate(dateBirth)
-//            validateCPF(cpf)
-//            validatePhone(phone)
-
-//            if (isFormValid) {
-                val date = DateManager.stringToDate(dateBirth)
-                forward?.from = User(name, cpf, dateBirth = date, phone)
-                _goFromRegisterUserToSelectService.value = true
-//            } else {
-//                _goFromRegisterUserToSelectService.value = false
-//            }
-        }
-    }
-
-    /**
-     * FragmentSelectService
-     */
-
-    private val _service = MutableLiveData<String>()
-    val service: LiveData<String> = _service
-
-    private val _goFromSelectServiceToDispatch = MutableLiveData<Boolean>()
-    val goFromSelectServiceToDispatch: LiveData<Boolean?> = _goFromSelectServiceToDispatch
-
-    fun selectService(selectService: String) {
-        _service.value = selectService
-        forward?.service = ServiceType.fromString(selectService)
-    }
-
-    fun validateSelectService() {
-        _goFromSelectServiceToDispatch.value = forward?.service != null
-    }
-
-    /**
-     * FragmentDispatch
-     */
-
     private val _motiveErrorResId = MutableLiveData<Int>()
     val motiveErrorresId: LiveData<Int> = _motiveErrorResId
 
     private val _addresseeErrorResId = MutableLiveData<Int>()
     val serviceErrorResId: LiveData<Int> = _addresseeErrorResId
 
-    private val _confirmDataValidate = MutableLiveData<Boolean>()
-    val confirmDataValidate: LiveData<Boolean> = _confirmDataValidate
+    /**
+     * validations
+     **/
 
     private val _sendData = MutableLiveData<Boolean>()
     val sendData: LiveData<Boolean> = _sendData
 
-    private var isFormValid = false
-    private var isDataValid = false
+    /**
+     * functions
+     **/
 
-    fun getDate(): String {
-        if (forward?.from?.dateBirth != null)
-            return DateManager.dateToString(forward?.from?.dateBirth!!)
-        return ""
+    init {
+        resetData()
+    }
+
+    fun resetData() {
+        _userName.value = ""
+        _userCPF.value = ""
+        _userDateBirth.value = ""
+        _userPhone.value = ""
+        _motive.value = ""
+        _addresseeType.value = null
+        _serviceType.value = ""
+    }
+
+    fun setUserName(name: String){
+        _userName.value = name
+    }
+
+    fun setUserCPF(cpf: String){
+        _userCPF.value = cpf
+    }
+
+    fun setUserPhone(phone: String){
+        _userPhone.value = phone
+    }
+
+    fun setUserDateBirth(date: String){
+        _userDateBirth.value = date
+    }
+
+    fun setMotive(motive: String) {
+        _motive.value = motive
+    }
+
+    fun selectService(selectService: String) {
+        _serviceType.value = selectService
+    }
+
+    fun selectAddressee(addresseeType: AddresseeType) {
+        _addresseeType.value = addresseeType
+    }
+
+    fun isValidationRegisterUser(): Boolean {
+        val validName = isNameValid()
+        val validCpf = isCPFValid()
+        val validDate = isDateBirthValid()
+        val validPhone = isPhoneValid()
+        return (validName && validCpf && validDate && validPhone)
+    }
+
+    fun isValidationSelectService(): Boolean {
+        return isServiceValid()
+    }
+
+    fun isValidationDispatch() : Boolean {
+        val validMotive = isMotiveValid()
+        val validAddressee = isAddresseeValid()
+        return (validMotive && validAddressee)
     }
 
     fun getAge(): String {
-        if (forward?.from?.dateBirth != null)
-            return DateManager.calculateUserAgetoString(forward?.from?.dateBirth!!)
+        if (userDateBirth.value.toString().isNotBlank())
+            return DateManager.calculateUserAgetoString(userDateBirth.value!!)
         return ""
     }
 
-    fun selectMotive(motive: String) {
-        forward?.motive = motive
+    private fun getUser(): User{
+        val dateBirth = DateManager.stringToDate(userDateBirth.value.toString())
+        return User(
+            name = userName.value.toString(),
+            cpf = userCPF.value.toString(),
+            phone = userPhone.value.toString(),
+            dateBirth = dateBirth
+        )
     }
 
-    fun selectAddressee(to: AddresseeEnum) {
-        forward?.to = to
-    }
-
-    fun validateDataToSend() {
-        isDataValid = true
-        validateMotive(forward?.motive)
-        validateAddressee(forward?.to)
-        _confirmDataValidate.value = isDataValid
-    }
-
-    fun sendFoward() {
+    fun sendDataFoward() {
         viewModelScope.launch {
             try {
-                forward = sendForwardUseCase.invoke(
-                    forward?.from!!,
-                    forward?.to!!,
-                    forward?.motive!!,
-                    forward?.service!!
+                val dateBirth = DateManager.stringToDate(userDateBirth.value.toString())
+                val user = getUser()
+                val to: AddresseeType? = addresseeType.value
+                val serviceType = ServiceType.fromString(serviceType.value.toString())
+                val forward = sendForwardUseCase.invoke(
+                    from = user,
+                    to = to!!,
+                    serviceType = serviceType!!,
+                    motive = motive.value.toString()
                 )
-                _sendData.value = true
+                _sendData.value = (forward != null)
             } catch (e: Exception) {
                 _sendData.value = false
             }
@@ -156,60 +172,74 @@ class ForwardViewModel @Inject constructor(
     }
 
     /**
-     * Validations
+     * Validations private functions
      */
 
-    private fun validateDate(date: String) {
-        if (date.isEmpty()) {
+    private fun isDateBirthValid(): Boolean {
+        if (userDateBirth.value.toString().isEmpty()) {
             _dateBirthErrorResId.value = R.string.massage_error_field_null
-            isFormValid = false
-        } else if (date.length < 10) {
+            return false
+        } else if (userDateBirth.value?.length!! < 10) {
             _dateBirthErrorResId.value = R.string.massage_error_date
-            isFormValid = false
-        } else if (DateManager.isDateGreaterThanToday(date)) {
+            return false
+        } else if (DateManager.isDateGreaterThanToday(userDateBirth.value!!)) {
             _dateBirthErrorResId.value = R.string.massage_error_date_greater_than_current
-            isFormValid = false
-        } else if (DateManager.calculateUserAge(date) > 149) {
+            return false
+        } else if (DateManager.calculateUserAge(userDateBirth.value!!) > 149) {
             _dateBirthErrorResId.value = R.string.massage_error_date_150_years_old
-            isFormValid = false
+            return false
         }
+        return true
     }
 
-    private fun validateCPF(cpf: String) {
-        if (cpf.isEmpty()) {
+    private fun isCPFValid(): Boolean {
+        if (userCPF.value?.isEmpty() == true) {
             _cpfErrorResId.value = R.string.massage_error_field_null
-            isFormValid = false
-        } else if (cpf.length < 14) {
+            return false
+        } else if (userCPF.value?.length!! < 14) {
             _cpfErrorResId.value = R.string.massage_error_cpf
-            isFormValid = false
+            return false
         }
+        return true
     }
 
-    private fun validateName(nome: String) {
-        if (nome.isEmpty()) {
+    private fun isNameValid(): Boolean {
+        if (userName.value?.isEmpty() == true) {
             _nameErrorResId.value = R.string.massage_error_field_null
-            isFormValid = false
+            return false
         }
+        return true
     }
 
-    private fun validatePhone(phone: String) {
-        if (phone.isNotBlank() && phone.length < 15) {
+    private fun isPhoneValid(): Boolean {
+        if (userPhone.value?.isNotBlank() == true && userPhone.value?.length!! < 15) {
             _phoneErrorResId.value = R.string.massage_error_phone
-            isFormValid = false
+            return false
         }
+        return true
     }
 
-    private fun validateMotive(motive: String?) {
-        if (motive.isNullOrBlank()) {
+    private fun isServiceValid(): Boolean {
+        if (serviceType.value == null) {
             _motiveErrorResId.value = R.string.massage_error_field_motivo
-            isDataValid = false
+            return false
         }
+        return true
     }
 
-    private fun validateAddressee(Addressee: AddresseeEnum?) {
-        if (Addressee == null) {
-            _addresseeErrorResId.value = R.string.massage_error_field_addressee
-            isDataValid = false
+    private fun isMotiveValid(): Boolean {
+        if (motive.value?.isEmpty() == true) {
+            _motiveErrorResId.value = R.string.massage_error_field_motivo
+            return false
         }
+        return true
+    }
+
+    private fun isAddresseeValid(): Boolean {
+        if (addresseeType.value == null) {
+            _addresseeErrorResId.value = R.string.massage_error_field_addressee
+            return false
+        }
+        return true
     }
 }

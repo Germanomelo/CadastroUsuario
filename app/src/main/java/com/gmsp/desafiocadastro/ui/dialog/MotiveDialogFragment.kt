@@ -24,7 +24,6 @@ class MotiveDialogFragment : DialogFragment() {
         setStyle(DialogFragment.STYLE_NORMAL, R.style.CustomDialog);
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,6 +55,5 @@ class MotiveDialogFragment : DialogFragment() {
             binding.editTextTextMultiLine.setText(motive)
         }
     }
-
 
 }

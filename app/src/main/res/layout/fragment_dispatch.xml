@@ -39,7 +39,7 @@
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:text="@{viewModel.forward.from.name}"
+                android:text="@{viewModel.userName}"
                 tools:text="@string/name_full_hint"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@{viewModel.forward.from.cpf}"
+                android:text="@{viewModel.userCPF}"
                 tools:text="@string/cpf_hint"
                 app:layout_constraintStart_toEndOf="@+id/text_cpf"
                 app:layout_constraintTop_toBottomOf="@+id/text_name" />
@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@{viewModel.date}"
+                android:text="@{viewModel.userDateBirth}"
                 tools:text="@string/date_hint"
                 app:layout_constraintStart_toEndOf="@+id/text_date_birth"
                 app:layout_constraintTop_toBottomOf="@+id/text_cpf" />

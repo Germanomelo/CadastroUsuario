@@ -35,6 +35,7 @@ class RegisterUserFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
             viewModel = sharedViewModel
+            lifecycleOwner = viewLifecycleOwner
             registerUserFragment = this@RegisterUserFragment
         }
         observeViewModelEvents()
@@ -48,14 +49,6 @@ class RegisterUserFragment : Fragment() {
 
         binding?.editPhone?.addTextChangedListener(PhoneFormatter(binding?.editPhone!!))
 
-    }
-
-    fun onClickButtonRegister() {
-        val name = binding?.editName?.text.toString()
-        val cpf = binding?.editCpf?.text.toString()
-        val dateBirth = binding?.editDateBirth?.text.toString()
-        val phone = binding?.editPhone?.text.toString()
-        sharedViewModel.createUser(name, cpf, dateBirth, phone)
     }
 
     private fun observeViewModelEvents() {
@@ -74,10 +67,15 @@ class RegisterUserFragment : Fragment() {
         sharedViewModel.phoneErrorResId.observe(viewLifecycleOwner) { stringResId ->
             binding?.editPhone?.error = getString(stringResId)
         }
+    }
 
-        sharedViewModel.goFromRegisterUserToSelectService.observe(viewLifecycleOwner) { goTo ->
-            if (goTo == true)
-                findNavController().navigate(R.id.action_registerUserFragment_to_selectServiceFragment)
+    fun onClickButtonRegister() {
+        sharedViewModel.setUserName(binding?.editName?.text.toString())
+        sharedViewModel.setUserCPF(binding?.editCpf?.text.toString())
+        sharedViewModel.setUserDateBirth(binding?.editDateBirth?.text.toString())
+        sharedViewModel.setUserPhone(binding?.editPhone?.text.toString())
+        if(sharedViewModel.isValidationRegisterUser()){
+            findNavController().navigate(R.id.action_registerUserFragment_to_selectServiceFragment)
         }
     }
 
